@@ -1,0 +1,150 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img width="40" alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
+  +
+    <img src="https://graphql.org/img/logo.svg" height="40" width="40" alt="GraphQL Logo" style="user-select:none">
+
+    <span>Angular - GraphQL Demo</span>
+  <div class="spacer"></div>
+</div>
+
+<div class="content" role="main">
+
+  <div class="card">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Email</th>
+          <th scope="col">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              (click)="userForm.reset();userAddEdit('Add')">
+              Add New
+            </button>
+          </th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList;index as i">
+          <th scope="row">{{i+1}}</th>
+          <td>{{user.fname}}</td>
+          <td>{{user.lname}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.email}}</td>
+          <td>
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              (click)="userAddEdit('Edit',user)">
+              Edit
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+              (click)="userDelete(user.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal fade" #closeModal id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}} User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form #userForm="ngForm">
+          <div class="modal-body">
+
+            <div class="form-group mb-3">
+              <label for="fnameInput" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="fnameInput" [(ngModel)]="fname" name="fnameInput" required
+                pattern="[a-zA-Z ]{2,30}" autocomplete="off" #fnameInput="ngModel">
+              <div *ngIf="fnameInput.invalid && (fnameInput.dirty || fnameInput.touched)" class="alert alert-danger">
+                <div *ngIf="fnameInput.errors?.['required']">
+                  First Name is required.
+                </div>
+                <div *ngIf="fnameInput.errors?.['pattern']">
+                  Invalid First Name
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="lnameInput" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lnameInput" [(ngModel)]="lname" name="lnameInput" required
+                pattern="[a-zA-Z ]{2,30}" autocomplete="off" #lnameInput="ngModel">
+              <div *ngIf="lnameInput.invalid && (lnameInput.dirty || lnameInput.touched)" class="alert alert-danger">
+                <div *ngIf="lnameInput.errors?.['required']">
+                  Last Name is required.
+                </div>
+                <div *ngIf="lnameInput.errors?.['pattern']">
+                  Invalid Last Name
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="phoneInput" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="phoneInput" [(ngModel)]="phone" name="phoneInput" required
+                pattern="[6-9]{1}[0-9]{9}" autocomplete="off" #phoneInput="ngModel">
+              <div *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)" class="alert alert-danger">
+                <div *ngIf="phoneInput.errors?.['required']">
+                  Phone number is required.
+                </div>
+                <div *ngIf="phoneInput.errors?.['pattern']">
+                  Invalid Phone Number
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="emailInput" class="form-label">Email ID</label>
+              <input type="text" class="form-control" id="emailInput" [(ngModel)]="email" name="emailInput" required
+                pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+(\.\w{2,3})+$" autocomplete="off" #emailInput="ngModel">
+              <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="alert alert-danger">
+                <div *ngIf="emailInput.errors?.['required']">
+                  Email ID is required.
+                </div>
+                <div *ngIf="emailInput.errors?.['pattern']">
+                  Invalid Email ID
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="confirmAddEdit(userForm)">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Please Confirm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete user?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="confirmDelete()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

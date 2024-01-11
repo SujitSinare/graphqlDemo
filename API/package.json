@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-apollo-mongodb-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "",
+  "license": "",
+  "scripts": {
+    "start": "nodemon ./node_modules/babel-cli/bin/babel-node.js --presets env index.js"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.19.1",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.4.0",
+    "mongoose": "^5.13.20"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^2.0.6"
+  }
+}
